@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/fonts/Inter-Black.ttf</file>
+        <file>Assets/fonts/Inter-Bold.ttf</file>
+        <file>Assets/fonts/Inter-ExtraBold.ttf</file>
+        <file>Assets/fonts/Inter-ExtraLight.ttf</file>
+        <file>Assets/fonts/Inter-Light.ttf</file>
+        <file>Assets/fonts/Inter-Medium.ttf</file>
+        <file>Assets/fonts/Inter-Regular.ttf</file>
+        <file>Assets/fonts/Inter-SemiBold.ttf</file>
+        <file>Assets/fonts/Inter-Thin.ttf</file>
+        <file>Assets/img/Success.svg</file>
+        <file>Assets/img/DefaultUserImg.svg</file>
+    </qresource>
+</RCC>

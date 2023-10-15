@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>TabAddUser.qml</file>
+        <file>TabUsers.qml</file>
+        <file>Styles/Default.qml</file>
+        <file>OpenFileDialog.qml</file>
+    </qresource>
+</RCC>
