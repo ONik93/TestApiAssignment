@@ -8,6 +8,7 @@
 #include "NetworkManager.h"
 #include "NetworkDefines.h"
 #include "UsersModel.h"
+#include "FileHelper.h"
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent){
 	this->networkManager = new QNetworkAccessManager(this);
@@ -96,11 +97,11 @@ void NetworkManager::createUser(const QString name, const QString email, const Q
 	positionIdPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"position_id\""));
 	positionIdPart.setBody(QString::number(positionId).toUtf8());
 
-	QHttpPart photoPart;
-	photoPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"photo\"; filename=\"" + QFileInfo(photoPath).fileName() + "\""));
+    QHttpPart photoPart;
+    photoPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"photo\"; filename=\"" + QFileInfo(FORMAT_PATH(photoPath)).fileName() + "\""));
 	photoPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
 
-	QFile* photoFile = new QFile(photoPath);
+    QFile* photoFile = new QFile(FORMAT_PATH(photoPath));
 	if (photoFile->open(QIODevice::ReadOnly)) {
 		photoPart.setBodyDevice(photoFile);
 		photoFile->setParent(multiPart);

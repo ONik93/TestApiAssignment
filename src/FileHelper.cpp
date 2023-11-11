@@ -17,11 +17,10 @@ qint64 FileHelper::getFileSize(const QString &filePath) {
 }
 
 bool FileHelper::isImageSizeValid(const QString &filePath, int minWidth, int minHeight, int maxSizeInMB) {
-	QFile file(filePath);
-	QImage image(filePath);
+    QFile file(FORMAT_PATH(filePath));
+    QImage image(FORMAT_PATH(filePath));
 
-	if (file.exists()) {
-
+    if (file.exists()) {
 		qint64 fileSize = file.size();
 
 		if (image.isNull()) {

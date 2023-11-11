@@ -8,11 +8,10 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-#set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
-#find_package(OpenSSL REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 set(HEADER_FILES
     header/NetworkManager.h
@@ -29,11 +28,14 @@ set(SOURCE_FILES
     src/PositionsModel.cpp
     src/FileHelper.cpp
 )
+set(RESOURCE_FILES
+    UI.qrc
+    Assets.qrc
+)
 set(PROJECT_SOURCES
     ${HEADER_FILES}
     ${SOURCE_FILES}
-    UI.qrc
-    Assets.qrc
+    ${RESOURCE_FILES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -63,8 +65,8 @@ target_link_libraries(TestApiAssignment
   PRIVATE
   Qt${QT_VERSION_MAJOR}::Core
   Qt${QT_VERSION_MAJOR}::Quick
-  #OpenSSL::SSL
-  #OpenSSL::Crypto
+  OpenSSL::SSL
+  OpenSSL::Crypto
 )
 
 target_include_directories(TestApiAssignment PRIVATE header)
@@ -83,24 +85,16 @@ install(TARGETS TestApiAssignment
 
 if (WIN32)
     set(QT_BIN_DIR "C:/Qt/5.15.2/msvc2019_64/bin")
+    set(OPENSSL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third-party/OpenSSL")
 
     add_custom_command(TARGET TestApiAssignment POST_BUILD
-	COMMAND ${QT_BIN_DIR}/windeployqt --verbose 0 $<TARGET_FILE:TestApiAssignment>
-    )
-
-     if (CMAKE_SIZEOF_VOID_P EQUAL 8)  # 64-bit
-	set(OPENSSL_DIR "C:/Qt/Tools/OpenSSL/Win_x64/bin")
-    elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)  # 32-bit
-	set(OPENSSL_DIR "C:/Qt/Tools/OpenSSL/Win_x86/bin")
-    else()
-	message(FATAL_ERROR "Unsupported architecture")
-    endif()
-
-    add_custom_command(TARGET TestApiAssignment POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OPENSSL_DIR}/libcrypto-1_1-x64.dll" "$<TARGET_FILE_DIR:TestApiAssignment>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OPENSSL_DIR}/libcrypto-1_1-x64.dll" "$<TARGET_FILE_DIR:TestApiAssignment>"
     )
     add_custom_command(TARGET TestApiAssignment POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OPENSSL_DIR}/libssl-1_1-x64.dll" "$<TARGET_FILE_DIR:TestApiAssignment>"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${OPENSSL_DIR}/libssl-1_1-x64.dll" "$<TARGET_FILE_DIR:TestApiAssignment>"
+    )
+    add_custom_command(TARGET TestApiAssignment POST_BUILD
+        COMMAND ${QT_BIN_DIR}/windeployqt --verbose 2 --qmldir ${CMAKE_SOURCE_DIR} $<TARGET_FILE:TestApiAssignment>
     )
 endif()
 

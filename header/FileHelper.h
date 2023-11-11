@@ -5,6 +5,12 @@
 #include <QFile>
 #include <QImage>
 
+#ifdef Q_OS_UNIX
+    #define FORMAT_PATH(path) (path.startsWith("/") ? path : ("/" + path))
+#else
+    #define FORMAT_PATH(path) (path)
+#endif
+
 class FileHelper : public QObject
 {
 	Q_OBJECT
