@@ -11,8 +11,14 @@
 
 ## Results
 
-<div style="display: flex; justify-content: center;">
-  <img src="images/reg.jpg" alt="Register new user" />
-  <img src="images/reg_success.jpg" alt="Successful user registration" />
-  <img src="images/user_list.jpg" alt="Show user list" />
+Developed an app that complies with requirements and can be compiled on both Windows and Linux.
+
+#### Screenshots:
+
+<div style="display: flex; justify-content: center;"> 
+  <img src="images/reg.jpg" width=33% height=33% />
+  <img src="images/reg_success.jpg" width=33% height=33% />
+  <img src="images/user_list.jpg" width=33% height=33%  />
 </div>
+
+
