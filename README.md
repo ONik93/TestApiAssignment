@@ -16,9 +16,9 @@ Developed an app that complies with requirements and can be compiled on both Win
 #### Screenshots:
 
 <div style="display: flex; justify-content: center;"> 
-  <img src="images/reg.jpg" width=33% height=33% />
-  <img src="images/reg_success.jpg" width=33% height=33% />
-  <img src="images/user_list.jpg" width=33% height=33%  />
+  <img src="images/reg.jpg" width=30% height=30% />
+  <img src="images/reg_success.jpg" width=30% height=30% />
+  <img src="images/user_list.jpg" width=30% height=30%  />
 </div>
 
 
