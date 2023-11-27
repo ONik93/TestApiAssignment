@@ -1,4 +1,4 @@
-# Test assignment for abz.agency company
+# Test assignment on REST API topic for IT company...
 
 ## Assignment requirements
 
