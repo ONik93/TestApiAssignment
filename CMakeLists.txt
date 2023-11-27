@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
-find_package(OpenSSL REQUIRED)
+if (WIN32)
+    find_package(OpenSSL REQUIRED)
+endif()
 
 set(HEADER_FILES
     header/NetworkManager.h
@@ -61,13 +63,21 @@ else()
     endif()
 endif()
 
-target_link_libraries(TestApiAssignment
-  PRIVATE
-  Qt${QT_VERSION_MAJOR}::Core
-  Qt${QT_VERSION_MAJOR}::Quick
-  OpenSSL::SSL
-  OpenSSL::Crypto
-)
+if (WIN32)
+    target_link_libraries(TestApiAssignment
+        PRIVATE
+        Qt${QT_VERSION_MAJOR}::Core
+        Qt${QT_VERSION_MAJOR}::Quick
+        OpenSSL::SSL
+        OpenSSL::Crypto
+    )
+else()
+    target_link_libraries(TestApiAssignment
+        PRIVATE
+        Qt${QT_VERSION_MAJOR}::Core
+        Qt${QT_VERSION_MAJOR}::Quick
+    )
+endif()
 
 target_include_directories(TestApiAssignment PRIVATE header)
 
