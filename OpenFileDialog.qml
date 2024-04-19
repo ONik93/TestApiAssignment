@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Dialogs 1.0
+import QtQuick.Dialogs
 import App.Styles 1.0
 import FileHelper 1.0
 
@@ -33,12 +33,12 @@ RowLayout {
         FileDialog {
             id: fileDialog
             title: "Please choose a file"
-            folder: shortcuts.home
+            currentFolder: shortcuts.home
             nameFilters: ["Image files (*.jpg *.jpeg)"]
             onAccepted: {
-                var selectedFileUrl = fileDialog.fileUrls[0].substring(8);
+                var selectedFileUrl = fileDialog.selectedFiles[0].toString().substring(8);
                 var valid = fileHelper.isImageSizeValid(selectedFileUrl, 70, 70, 5);
-
+                console.log( "You chose: " + selectedFileUrl );
                 if (valid === true) {
                     fileUrlField.text = selectedFileUrl;
                     root.url = selectedFileUrl;

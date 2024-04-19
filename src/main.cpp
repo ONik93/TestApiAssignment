@@ -6,6 +6,10 @@
 #include "PositionsModel.h"
 #include "FileHelper.h"
 
+#ifdef Q_OS_ANDROID
+    #include <QJniObject>
+#endif
+
 class CustomApplication : public QGuiApplication {
 public:
 	CustomApplication(int &argc, char **argv) : QGuiApplication(argc, argv) {}
@@ -19,8 +23,8 @@ public:
 		}
 	}
 };
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -46,6 +50,18 @@ int main(int argc, char *argv[])
 	}, Qt::QueuedConnection);
 
 	engine.load(url);
+
+#ifdef Q_OS_ANDROID
+    QNativeInterface::QAndroidApplication::runOnAndroidMainThread([]() {
+        QJniObject activity = QNativeInterface::QAndroidApplication::context();
+        // Hide system ui elements or go full screen
+        QJniObject jni_window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+        jni_window.callMethod<void>("addFlags", "(I)V", 0x80000000);              // FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+        jni_window.callMethod<void>("clearFlags", "(I)V", 0x04000000);            // FLAG_TRANSLUCENT_STATUS
+        jni_window.callMethod<void>("setStatusBarColor", "(I)V", 0xff0d1a25);     // Desired statusbar color ARGB
+        jni_window.callMethod<void>("setNavigationBarColor", "(I)V", 0xff0d1a25); // Desired navigationbar color ARGB
+    }).waitForFinished();
+#endif
 
 	return app.exec();
 }

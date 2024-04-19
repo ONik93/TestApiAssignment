@@ -1,6 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls
 import QtQuick.Layouts 1.15
 import App.Styles 1.0
 import UsersModel 1.0

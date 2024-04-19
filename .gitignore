@@ -1,0 +1,7 @@
+#folders
+/build
+/certs
+
+#files
+*.autosave
+/header/Version.h
